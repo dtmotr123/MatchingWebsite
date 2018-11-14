@@ -33,7 +33,7 @@ should	submit	the	**code**	together	with	a	**one-page**	report	describing	their	
 Submit	these	to	QM+	as	a	single	zip	File.	Remember	to	include	in	the	report	the	URL	of	
 your	deployed	application,	and	the	username	and	password	for	the	admin	page.
 
-## Marking criteria:
+## Marking criteria
 1. [10%]	Application	is	deployed	on	OpenShift.	DB	is	populated	and	ready	for	testing.	
 2. [35%]	Basic	functionalities	implemented	and	fully	working.	
 3. [10%]	Good	modelling	of	the	application	data,	making	use	of	Django’s	ORM.	
