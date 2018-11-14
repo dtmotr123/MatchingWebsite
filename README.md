@@ -1,6 +1,7 @@
 # Matching Website
 
-**Description**:	Your	task	is	to	develop	a	**matching	website**	using	the	Django	framework.	
+## Description 	
+Your	task	is	to	develop	a	**matching	website**	using	the	Django	framework.	
 The	website	should	provide	the	following	basic	functionalities:		
 
 1. Users	can	create	an	account	on	the	site	and	login.	
@@ -25,7 +26,8 @@ need	to	approve	the	request.
     - Users	are	able	to	“like”	other	users	—	and	users	receive	alerts	or	emails	when	
 someone	likes	them.	
 
-**Outcome**:	Once	fully	tested,	your	application	should	be	deployed	to	the	school’s	OpenShift	
+## Outcome	
+Once	fully	tested,	your	application	should	be	deployed	to	the	school’s	OpenShift	
 web	servers	(to	be	discussed	in	week	10)	—	one	deployed	app	per	team.	Each	group	
 should	submit	the	**code**	together	with	a	**one-page**	report	describing	their	extra	feature.	
 Submit	these	to	QM+	as	a	single	zip	File.	Remember	to	include	in	the	report	the	URL	of	
