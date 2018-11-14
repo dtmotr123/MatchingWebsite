@@ -5,7 +5,7 @@ Your	task	is	to	develop	a	**matching	website**	using	the	Django	framework.
 The	website	should	provide	the	following	basic	functionalities:		
 
 1. Users	can	create	an	account	on	the	site	and	login.	
-2. The	user’s	proFile	should	contain	(at	least):	proFile	image,	email,	gender,	date	of	birth,	
+2. The	user’s	profile	should	contain	(at	least):	profile	image,	email,	gender,	date	of	birth,	
 and	a	list	of	hobbies.	
 3. The	overall	list	of	hobbies	should	be	deFined	in	advance	by	the	application	developer,	
 so	the	users	of	the	site	can	only	select	one	or	more	hobbies	from	the	given	list.	(i.e.	on	
