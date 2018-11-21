@@ -15,13 +15,11 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            print("REDIRECTING")
             return redirect('/')
         else:
             return render(request, 'QMLove/register.html',{'form':form})
     else:
         form = RegistrationForm()
-        print("RENDERING RETURN")
         return render(request, 'QMLove/register.html',{'form':form})
    
 
