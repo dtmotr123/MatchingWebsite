@@ -33,8 +33,8 @@ class RegistrationForm(UserCreationForm):
             user.first_name = self.cleaned_data['first_name']
             user.last_name = self.cleaned_data['last_name']
             user.email = self.cleaned_data['email']
-            user.dob = self.cleaner_data['dob']
-            user.gender = self.cleaner_data['gender']
+            user.dob = self.cleaned_data['dob']
+            user.gender = self.cleaned_data['gender']
         
             if commit:
                 user.save()
