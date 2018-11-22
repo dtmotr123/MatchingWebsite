@@ -5,6 +5,8 @@
     <title> QMLove </title>
 </head>
 <body>
-    
+   {% csrf_token %}
+    {% block content %}
+    {% endblock %}
 </body>
 </html>

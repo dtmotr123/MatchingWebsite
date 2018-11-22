@@ -6,7 +6,11 @@ class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     #profileImage = models.ImageField(upload_to='profile_images')
     email = models.EmailField(max_length=254, blank=True)
-    gender = models.CharField(max_length=6, blank=True)
+    GENDERS = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
+    gender = MultiSelectField(choices=GENDERS, null=True)
     dob = models.DateField(auto_now=False, auto_now_add=False, blank=True)
 
     def __str__(self):
