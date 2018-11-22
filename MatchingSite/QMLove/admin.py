@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from .models import Profile, Hobby
 
-# https://docs.djangoproject.com/en/dev/topics/auth/customizing/#extending-the-existing-user-model
+
 class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
