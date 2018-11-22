@@ -8,13 +8,13 @@ from QMLove.forms import RegistrationForm
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return HttpResponse("Hello, world. You're at the index!")
 
 def register(request):
     if request.method =="POST":
         form = RegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
+        if form.is_valid(): #runs when valid form. Make sure strong password is typed when testing
+            form.save() 
             return redirect('/')
         else:
             return render(request, 'QMLove/register.html',{'form':form})

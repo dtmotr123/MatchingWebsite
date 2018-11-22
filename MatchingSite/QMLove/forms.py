@@ -15,7 +15,6 @@ class RegistrationForm(UserCreationForm):
     gender = forms.ChoiceField(widget=forms.Select,
                                          choices=GENDERS)
     
-    
     class Meta:
         model = User
         fields = ('username', 
@@ -28,18 +27,20 @@ class RegistrationForm(UserCreationForm):
                   'password2',
                  )
         
-        def save(self, commit=True):
-            user = super(RegisterationForm, self).save(commit=False)
-            user.first_name = self.cleaned_data['first_name']
-            user.last_name = self.cleaned_data['last_name']
-            user.email = self.cleaned_data['email']
-            user.dob = self.cleaned_data['dob']
-            user.gender = self.cleaned_data['gender']
+    ##This gets called in views.py by form.save()
+    def save(self, commit=True):
+        user = super(RegistrationForm, self).save(commit=False)
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.email = self.cleaned_data['email']
+        user.dob = self.cleaned_data['dob']
+        user.gender = self.cleaned_data['gender']
+
         
-            if commit:
-                user.save()
-   
-            return user
+        if commit: #TESTED and it does run after submitting form
+            user.save()
+
+        return user
         
 
 
