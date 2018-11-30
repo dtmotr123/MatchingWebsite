@@ -1,31 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-from multiselectfield import MultiSelectField
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    #profileImage = models.ImageField(upload_to='profile_images')
-    email = models.EmailField(max_length=254, blank=True)
-    GENDERS = (
-        ('M', 'Male'),
-        ('F', 'Female'),
-    )
-    gender = MultiSelectField(choices=GENDERS, null=True)
-    dob = models.DateField(auto_now=False, auto_now_add=False, blank=True)
-
-    def __str__(self):
-        return self.user.username
-
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
 
 class Hobby(models.Model):
     HOBBIES = (
@@ -41,5 +15,21 @@ class Hobby(models.Model):
         ('10', 'Fashion'),
         ('11', 'Art')
     )
-    hobby_name = MultiSelectField(choices=HOBBIES, null=True)
-    users = models.ManyToManyField(Profile)
+
+    hobby = models.CharField(choices=HOBBIES, max_length=1, null=True)
+
+class Profile(models.Model):
+    GENDERS = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    #profileImage = models.ImageField(upload_to='profile_images')
+    email = models.EmailField(max_length=254, blank=True)
+    gender = models.CharField(choices=GENDERS, max_length=1, null=True, default='')
+    dob = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    hobby = models.ManyToManyField(Hobby)
+
+    def __str__(self):
+        return self.user.username
