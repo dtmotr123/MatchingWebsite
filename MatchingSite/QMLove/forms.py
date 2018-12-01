@@ -12,6 +12,8 @@ class UserForm(forms.ModelForm):
         fields = ('username', 'password', 'first_name', 'last_name')
 
 class ProfileForm(forms.ModelForm):
+    dob = forms.DateField(widget = (forms.widgets.DateInput(format="%d/%m/%Y", attrs={'placeholder':'dd/mm/yyyy'})))
+    
     class Meta:
         model = Profile
         fields = ('email', 'gender', 'dob', 'hobby')
