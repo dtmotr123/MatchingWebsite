@@ -10,7 +10,11 @@
 
 <h2>Sign up</h2>
 
-<form method="POST">
+<!--
+The form must contain the enctype.
+It is necessary for file upload.
+-->
+<form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ userForm.as_p }}
     {{ profileForm.as_p }}

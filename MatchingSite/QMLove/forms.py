@@ -13,10 +13,11 @@ class UserForm(forms.ModelForm):
 
 class ProfileForm(forms.ModelForm):
     dob = forms.DateField(widget = (forms.widgets.DateInput(format="%d/%m/%Y", attrs={'placeholder':'dd/mm/yyyy'})))
-    
+    image = forms.ImageField(required=False)
+
     class Meta:
         model = Profile
-        fields = ('email', 'gender', 'dob', 'hobby')
+        fields = ('image', 'email', 'gender', 'dob', 'hobby')
 
 # class RegistrationForm(UserCreationForm):
 #     email = forms.EmailField(required=True)

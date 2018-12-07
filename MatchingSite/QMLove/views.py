@@ -11,13 +11,17 @@ def index(request):
 def register(request):
     if request.method == "POST":
         userForm = UserForm(data=request.POST)
-        profileForm = ProfileForm(data=request.POST)
+        profileForm = ProfileForm(request.POST, request.FILES)
         if userForm.is_valid() and profileForm.is_valid():
             user = userForm.save()
             user.set_password(user.password)
             user.save()
 
             profile = profileForm.save(commit=False)
+
+            if 'image' in request.FILES:
+                profile.image = request.FILES['image']
+
             profile.user = user
             profile.save()
             return redirect('/')
