@@ -1,25 +1,25 @@
-{% extends 'QMLove/base.html' %}
-{% block content %}
+{% extends 'base.html' %}
 
+<html>
+  <head>
+      {% block head %}
+          <title> QMLove Homepage </title>
+      {% endblock %}
+  </head>
+  <body>
+      {% block body %}
+        <h2>Sign up</h2>
 
-<!--STYLES BELOW ARE TEMPORARY AND ARE JUST USED TO HIGHLIGHT FORM ENTRY CHECK ERRORS IN RED-->
-<style>
-    .errorlist{color: red;}
-</style>
-
-
-<h2>Sign up</h2>
-
-<!--
-The form must contain the enctype.
-It is necessary for file upload.
--->
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ userForm.as_p }}
-    {{ profileForm.as_p }}
-    <button type="submit">Sign up</button>
-</form>
-
-
-{% endblock %}
+        <!--
+        The form must contain the enctype.
+        It is necessary for file (image) upload.
+        -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ userForm.as_p }}
+            {{ profileForm.as_p }}
+            <button type="submit">Sign up</button>
+        </form>
+      {% endblock %}
+  </body>
+</html>

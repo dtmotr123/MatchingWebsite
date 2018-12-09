@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+<html>
+  <head>
+      {% block head %}
+          <title> QMLove Homepage </title>
+      {% endblock %}
+  </head>
+  <body>
+      {% block body %}
+        <div class="container">
+          <div class="jumbotron">
+            <h1 class="display-4">QMLove Dating</h1>
+            <p class="lead">Where the real love is born.</p>
+            <hr class="my-4">
+            It takes a few seconds to register and find your soulmate. On the other hand, it takes a lifetime to get over the regret that you did not sign up!
+          </div>
+
+          <div class="container">
+            <div class="row justify-content-md-center">
+              {% for user in users %}
+              <div class="col">
+                <div class="card mb-4 box-shadow">
+                  <img class="card-img-top" src="/profile_images/{{ user.profile.image }}" alt="User profile picture">
+                <div class="card-body">
+                  <h5 class="card-title">{{ user }}</h5>
+                  <p class="card-text">I am interested in the following: {% for hobby in user.profile.hobby.all %} <li class="list-group-item">{{ hobby }}</li> {% endfor %}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Email: {{ user.profile.email }}</li>
+                  <li class="list-group-item">Gender: {{ user.profile.gender }}</li>
+                  <li class="list-group-item">Date of birth: {{ user.profile.dob }}</li>
+                </ul>
+                <div class="card-body">
+                  <a href="#" class="card-link">Card link</a>
+                  <a href="#" class="card-link">Another link</a>
+                </div>
+              </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+      </div>
+
+      {% endblock %}
+  </body>
+</html>
