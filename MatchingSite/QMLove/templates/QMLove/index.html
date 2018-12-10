@@ -15,7 +15,7 @@
             <hr class="my-4">
             It takes a few seconds to register and find your soulmate. On the other hand, it takes a lifetime to get over the regret that you did not sign up!
           </div>
-
+            {% if user.is_authenticated %}
           <div class="container">
             <div class="row justify-content-md-center">
               {% for user in users %}
@@ -41,7 +41,8 @@
             </div>
           </div>
       </div>
-
+      {% else %}
+      {% endif %}
       {% endblock %}
   </body>
 </html>

@@ -33,7 +33,16 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'QMLove:register' %}">Register</a>
+                {% if user.is_authenticated %}
             </li>
+              <li class="nav-item">
+              <a class="nav-link" href="logout">Logout</a>
+                {% else %}
+            </li>
+              <li class="nav-item">
+              <a class="nav-link" href="login">login</a>
+            </li>
+               {% endif %}
           </ul>
         </div>
       </nav>
