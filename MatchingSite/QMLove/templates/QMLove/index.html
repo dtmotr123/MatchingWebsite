@@ -1,48 +1,160 @@
 {% extends 'base.html' %}
 
+<!DOCTYPE html>
 <html>
-  <head>
-      {% block head %}
-          <title> QMLove Homepage </title>
-      {% endblock %}
-  </head>
-  <body>
-      {% block body %}
-        <div class="container">
-          <div class="jumbotron">
-            <h1 class="display-4">QMLove Dating</h1>
-            <p class="lead">Where the real love is born.</p>
-            <hr class="my-4">
-            It takes a few seconds to register and find your soulmate. On the other hand, it takes a lifetime to get over the regret that you did not sign up!
+<head>
+  {% block head %}
+  <title> QMLove Homepage </title>
+  {% endblock %}
+</head>
+<body>
+  {% block body %}
+
+  <!-- Page Content -->
+  <div class="container">
+    <!-- Jumbotron Header -->
+    <header class="jumbotron my-4">
+      <h1 class="display-3">QMLove Dating</h1>
+      <p class="lead">Where the real love is born.</p>
+      <hr class="my-4">
+      <p>It takes a few seconds to register and find your soulmate. On the other hand, it takes a lifetime to get over the regret that you did not sign up!</p>
+    </header>
+
+    {% if user.is_authenticated %}
+
+    <!-- Page Features -->
+    <div class="row text-center">
+      {% for user in similar_interests %}
+      <div class="col-3">
+        <div class="card">
+          <img class="card-img-top" src="/profile_images/{{ user.image }}" alt="User profile picture">
+          <div class="card-body">
+            <h4 class="card-title">{{ user }}</h4>
+            <p class="card-text">
+              Hello! I am {{ user.user.get_full_name }} and I am {{ user.age }} years old. I am looking to make some friends.
+              If you want to find more about me, click on the button below!
+            </p>
           </div>
-            {% if user.is_authenticated %}
-          <div class="container">
-            <div class="row justify-content-md-center">
-              {% for user in users %}
-              <div class="col">
-                <div class="card mb-4 box-shadow">
-                  <img class="card-img-top" src="/profile_images/{{ user.profile.image }}" alt="User profile picture">
-                <div class="card-body">
-                  <h5 class="card-title">{{ user }}</h5>
-                  <p class="card-text">I am interested in the following: {% for hobby in user.profile.hobby.all %} <li class="list-group-item">{{ hobby }}</li> {% endfor %}</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Email: {{ user.profile.email }}</li>
-                  <li class="list-group-item">Gender: {{ user.profile.gender }}</li>
-                  <li class="list-group-item">Date of birth: {{ user.profile.dob }}</li>
-                </ul>
-                <div class="card-body">
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a>
+          <div class="card-footer">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ user.id }}">
+              Find more about me!
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="{{ user.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">{{ user }}'s hobbies</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p class="card-text">If you clicked on me, you are surely interested in me. I am passionate about these things:
+                      <ul class="list-group">
+                        {% for hobby in user.hobby.all %}
+                        <li class="list-group-item">{{ hobby }}</li>
+                        {% endfor %}
+                      </ul>
+                    </p>
+                    <p class="card-text">
+                      <strong>Other details about me:</strong>
+                      <ul class="list-group">
+                        <li class="list-group-item">Email: {{ user.email }}</li>
+                        <li class="list-group-item">Gender: {{ user.get_gender_display }}</li>
+                        <li class="list-group-item">Date of birth: {{ user.dob }}</li>
+                      </ul>
+                    </p>
+                    <p class="card-text">If you think we are a match, send me an email!</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
                 </div>
               </div>
-              </div>
-              {% endfor %}
             </div>
           </div>
+        </div>
       </div>
+      {% endfor %}
+
       {% else %}
-      {% endif %}
-      {% endblock %}
+
+      <div class="row text-center">
+        {% for user in users %}
+        <div class="col-3">
+          <div class="card">
+            <img class="card-img-top" src="/profile_images/{{ user.profile.image }}" alt="User profile picture">
+            <div class="card-body">
+              <h4 class="card-title">{{ user }}</h4>
+              <p class="card-text">
+                Hello! I am {{ user.get_full_name }} and I am {{ user.age }} years old. I am looking to make some friends.
+                If you want to find more about me, click on the button below!
+              </p>
+            </div>
+            <div class="card-footer">
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ user.id }}">
+                Find more about me!
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="{{ user.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">{{ user }}'s hobbies</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p class="card-text">If you clicked on me, you are surely interested in me. I am passionate about these things:
+                        <ul class="list-group">
+                          {% for hobby in user.profile.hobby.all %}
+                          <li class="list-group-item">{{ hobby }}</li>
+                          {% endfor %}
+                        </ul>
+                      </p>
+                      <p class="card-text">
+                        <strong>Other details about me:</strong>
+                        <ul class="list-group">
+                          <li class="list-group-item">Email: {{ user.profile.email }}</li>
+                          <li class="list-group-item">Gender: {{ user.profile.get_gender_display }}</li>
+                          <li class="list-group-item">Date of birth: {{ user.profile.dob }}</li>
+                        </ul>
+                      </p>
+                      <p class="card-text">If you think we are a match, send me an email!</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+        {% endif %}
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; QMLove/Web Programming Module 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    {% endblock %}
   </body>
-</html>
+
+  </html>

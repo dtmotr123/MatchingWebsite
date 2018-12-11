@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from datetime import datetime
 
 class Hobby(models.Model):
     name = models.CharField(max_length=50)
@@ -22,3 +23,8 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    # return the age of the user
+    @property
+    def age(self):
+        return int((datetime.now().date() - self.dob).days / 365.25)

@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  {% block head %}
+  <title> QMLove Network </title>
+  {% endblock %}
+</head>
+
+<body>
+  {% block body %}
+  <div class="container">
+
+    <header class="jumbotron my-4">
+      <h1 class="display-3">QMLove Dating</h1>
+      <p class="lead">Search for people</p>
+      <hr class="my-4">
+      <p>Perhaps you are not satisfied with the people our algorithm matched you. If you want to try your luck with a custom search, you are in the right place.</p>
+    </header>
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+          <form class="form-inline" id="formFiltering" method="get">
+            {{ filter.form.as_p }}
+            <button type="submit" id="submitFiltering">Search</button>
+          </form>
+      </nav>
+
+      {% if user.is_authenticated %}
+      <div class="row text-center">
+        {% for user in filter.qs %}
+        <div class="col-3">
+          <div class="card">
+            <img class="card-img-top" src="/profile_images/{{ user.image }}" alt="User profile picture">
+            <div class="card-body">
+              <h4 class="card-title">{{ user }}</h4>
+              <p class="card-text">
+                Hello! I am {{ user.user.get_full_name }} and I am {{ user.age }} years old. I am looking to make some friends.
+                If you want to find more about me, click on the button below!
+              </p>
+            </div>
+            <div class="card-footer">
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ user.id }}">
+                Find more about me!
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="{{ user.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">{{ user }}'s hobbies</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p class="card-text">If you clicked on me, you are surely interested in me. I am passionate about these things:
+                        <ul class="list-group">
+                          {% for hobby in user.hobby.all %}
+                          <li class="list-group-item">{{ hobby }}</li>
+                          {% endfor %}
+                        </ul>
+                      </p>
+                      <p class="card-text">
+                        <strong>Other details about me:</strong>
+                        <ul class="list-group">
+                          <li class="list-group-item">Email: {{ user.email }}</li>
+                          <li class="list-group-item">Gender: {{ user.get_gender_display }}</li>
+                          <li class="list-group-item">Date of birth: {{ user.dob }}</li>
+                        </ul>
+                      </p>
+                      <p class="card-text">If you think we are a match, send me an email!</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; QMLove/Web Programming Module 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+    {% endblock %}
+  </body>
+
+</html>
