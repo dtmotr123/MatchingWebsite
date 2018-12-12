@@ -19,6 +19,13 @@ footer {
   height: 50px;
 }
 
+#formTitle {
+    padding-left: 20px;}
+
+form {
+    padding-left: 20px;
+}
+
 .card {
   height: 100%;
 }

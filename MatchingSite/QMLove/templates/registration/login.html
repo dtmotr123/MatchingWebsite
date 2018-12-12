@@ -1,10 +1,24 @@
 {% extends 'base.html' %}
 {% block title %}Login{% endblock %}
  {% block body %}
+  <head>
+      {% block head %}
+          <title> QMLove Login </title>
+      {% endblock %}
+  </head>
 </br>
+<h2 id="formTitle">Login</h2>
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Login</button>
 </form>
+<!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; QMLove/Web Programming Module 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
 {% endblock %}
+
