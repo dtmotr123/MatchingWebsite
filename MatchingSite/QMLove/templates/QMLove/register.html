@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 
 <html>
+    
   <head>
       {% block head %}
-          <title> QMLove Homepage </title>
+          <title> QMLove Register </title>
       {% endblock %}
   </head>
   <body>
       {% block body %}
-        <h2>Sign up</h2>
+      
+        <h2 id="formTitle">Sign up</h2>
 
         <!--
         The form must contain the enctype.
@@ -20,6 +22,15 @@
             {{ profileForm.as_p }}
             <button type="submit">Sign up</button>
         </form>
+          <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; QMLove/Web Programming Module 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
       {% endblock %}
   </body>
+    
+
 </html>

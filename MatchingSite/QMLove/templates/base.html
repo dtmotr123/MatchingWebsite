@@ -32,14 +32,14 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="logout" id="logout">Logout</a>
+            <a class="nav-link" href="{% url 'logout' %}" id="logout">Logout</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'QMLove:search' %}" id="search">Network</a>
           </li>
           {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'QMLove:login' %}" id="login">Login</a>
+            <a class="nav-link" href="{% url 'login' %}" id="login">Login</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'QMLove:register' %}" id="register">Register</a>
