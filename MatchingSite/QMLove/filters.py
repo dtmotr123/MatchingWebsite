@@ -10,4 +10,5 @@ class ProfileFilter(django_filters.FilterSet):
         fields = {
             'gender': ['exact'],
             'dob': ['year__gt', 'year__lt'],
+            'hobby': ['exact']
         }

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
@@ -11,8 +11,13 @@ from collections import *
 def index(request):
     # exclude the admin, which has id number 1
     # retrieve all the users and hobbies
-    users = User.objects.all().exclude(id=1)
+    users = User.objects.all().exclude(username='admin')
     hobbies = Hobby.objects.all()
+
+    # if the user making the request is an admin,
+    # show all the records
+    if request.user.is_staff:
+        return render(request, "QMLove/index.html", {'users': users, 'hobbies': hobbies})
 
     # only execute the below code if the user is authenticated
     if (request.user.is_authenticated):
@@ -34,9 +39,6 @@ def index(request):
         similar_interests = [user for user,count in related_users_sorted]
 
         return render(request, "QMLove/index.html", {'similar_interests': similar_interests, 'hobbies': hobbies})
-
-        if request.user.is_staff:
-            return render(request, "QMLove/index.html", {'users': users, 'hobbies': hobbies})
     # if no user is authenticated, display all the users registered
     else:
         return render(request, "QMLove/index.html", {'users': users, 'hobbies': hobbies})
@@ -81,9 +83,12 @@ def register(request):
     else:
         userForm = UserForm()
         profileForm = ProfileForm()
-        return render(request, 'QMLove/register.html',{'userForm': userForm, 'profileForm': profileForm})
+        return render(request, 'QMLove/register.html', {'userForm': userForm, 'profileForm': profileForm})
 
+# handle the filtering
 def search(request):
-    profiles = Profile.objects.all().exclude(id=request.user.id)
+    # get all the profiles except the profile of the current user logged in
+    profiles = Profile.objects.all().exclude(user_id=request.user.id)
+    # pass the request to the ProfileFilter and the profiles
     user_filter = ProfileFilter(request.GET, queryset=profiles)
     return render(request, 'QMLove/search.html', {'filter': user_filter})
