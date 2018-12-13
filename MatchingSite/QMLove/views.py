@@ -77,7 +77,7 @@ def register(request):
             for index in hobbies:
                 profile.hobby.add(Hobby.objects.get(id=index))
 
-            return redirect('/login')
+            return redirect('/')
         else:
             return render(request, 'QMLove/register.html', {'userForm': userForm, 'profileForm': profileForm})
     else:

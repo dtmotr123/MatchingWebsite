@@ -13,7 +13,7 @@ class UserForm(forms.ModelForm):
 
 class ProfileForm(forms.ModelForm):
     HOBBIES = [[hobby.id, hobby.name] for hobby in Hobby.objects.all()]
-    dob = forms.DateField(widget = (forms.widgets.DateInput(format="%d/%m/%Y", attrs={'placeholder':'dd/mm/yyyy'})))
+    dob = forms.DateField(widget = (forms.widgets.DateInput(format="%m/%d/%Y", attrs={'placeholder':'mm/dd/yyyy'})))
     image = forms.ImageField(required=False)
     hobby = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple(), choices=HOBBIES)
 
