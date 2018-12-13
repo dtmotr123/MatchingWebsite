@@ -1,36 +1,42 @@
 {% extends 'base.html' %}
 
+{% load widget_tweaks %}
+
 <html>
 
-  <head>
-      {% block head %}
-          <title> QMLove Register </title>
-      {% endblock %}
-  </head>
-  <body>
-      {% block body %}
+<head>
+  {% block head %}
+  <title> QMLove Register </title>
+  {% endblock %}
+</head>
+<body>
+  {% block body %}
 
-        <h2 id="formTitle">Sign up</h2>
+  <div class="container">
+    <h2 id="formTitle">Sign up</h2>
 
-        <!--
-        The form must contain the enctype.
-        It is necessary for file (image) upload.
-        -->
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ userForm.as_p }}
-            {{ profileForm.as_p }}
-            <button type="submit">Sign up</button>
-        </form>
-          <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; QMLove/Web Programming Module 2018</p>
-      </div>
-      <!-- /.container -->
-    </footer>
-      {% endblock %}
-  </body>
+    <!--
+    The form must contain the enctype.
+    It is necessary for file (image) upload.
+  -->
+  <div class="form-group">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ userForm.as_p }}
+      {{ profileForm.as_p }}
+      <button type="submit">Sign up</button>
+    </form>
+  </div>
+</div>
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">Copyright &copy; QMLove/Web Programming Module 2018</p>
+  </div>
+  <!-- /.container -->
+</footer>
+{% endblock %}
+</body>
 
 
 </html>

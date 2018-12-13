@@ -100,6 +100,14 @@ class RegistrationSuccessful(TestCase):
             'hobby': 'Fishing'
         })
 
+        # there is a many-to-many relationship between Profile and Hobby
+        # thus, the tests do not have access to the real database to retrieve the hobbies
+        # in order to simulate a successful registration, the line below creates an identic hobby to the one from the real database
+        # then the id of the hobby created below is passed to the hobby field in self.client.post
+        hobby = models.Hobby.objects.create(name='Fishing')
+
+        # dummy data is passed as a POST request
+        # not saved to the database
         self.response = self.client.post(url, {
             'username': 'testuser',
             'password': 'testuserpassword',
@@ -109,11 +117,9 @@ class RegistrationSuccessful(TestCase):
             'email': 'testuser@gmail.com',
             'gender': 'M',
             'dob': '10/10/1996',
-            'hobby': models.Hobby.objects.create('Fishing')
+            'hobby': hobby.id
         })
 
-
-        print(self.response.context['profileForm'])
         self.home_url = reverse('QMLove:index')
 
     # Test both the forms with valid data
@@ -122,10 +128,31 @@ class RegistrationSuccessful(TestCase):
         self.assertTrue(self.uForm)
         self.assertTrue(self.pForm)
 
-    # A valid form submission redirects the user to the home page
-    def test_redirection(self):
+    # checks if valid form submission redirects the user to the home page
+    def test_successful_registration_redirection(self):
         self.assertRedirects(self.response, self.home_url)
 
+    # check if the User, Profile and Hobby have been created
+    # if yes, it returns true
+    def test_objects_are_created(self):
+        self.assertTrue(models.User.objects.exists())
+        self.assertTrue(models.Profile.objects.exists())
+        self.assertTrue(models.Hobby.objects.exists())
+
+    # creates a new request to the home page
+    # the home page sends a response when making a request
+    # that response context should have a field called user inside its context
+    # after a successful registration
+    def test_user_login(self):
+        response = self.client.get(self.home_url)
+        user = response.context.get('user')
+        self.assertTrue(user.is_authenticated)
+
+    # it tests that the user is redirected back to the homepage
+    # after it logs out
+    def test_user_logout(self):
+        response = self.client.get('/logout/')
+        self.assertRedirects(response, self.home_url)
 
 '''
 This class tests an unsuccessful registration.
