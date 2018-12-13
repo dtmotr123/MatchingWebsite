@@ -1,1 +1,1 @@
-web: gunicorn qmlove.wsgi --log-file -
+web: gunicorn MatchingSite.wsgi --log-file -
