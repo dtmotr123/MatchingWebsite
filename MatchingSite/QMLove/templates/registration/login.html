@@ -1,24 +1,43 @@
 {% extends 'base.html' %}
-{% block title %}Login{% endblock %}
- {% block body %}
-  <head>
-      {% block head %}
-          <title> QMLove Login </title>
-      {% endblock %}
-  </head>
-</br>
-<h2 id="formTitle">Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-</form>
-<!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; QMLove/Web Programming Module 2018</p>
-      </div>
-      <!-- /.container -->
-    </footer>
-{% endblock %}
 
+{% load widget_tweaks %}
+
+{% block title %}Login{% endblock %}
+
+<head>
+  {% block head %}
+  <title> QMLove Login </title>
+  {% endblock %}
+</head>
+</br
+
+{% block body %}
+<div class="container paddingtop">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <h3><li class="breadcrumb-item">Sign up</li></h3>
+    </ol>
+  </nav>
+
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-group">
+      <strong><label for="{{ field.id_for_label }}"> {{ field.label_tag }} </label></strong>
+      {{ field|add_class:'form-control' }}
+      {% for error in field.errors %}
+        <span class="help-block">{{ error }}</span>
+      {% endfor %}
+    </div>
+    {% endfor %}
+    <button type="submit">Login</button>
+  </form>
+</div>
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">Copyright &copy; QMLove/Web Programming Module 2018</p>
+  </div>
+  <!-- /.container -->
+</footer>
+{% endblock %}

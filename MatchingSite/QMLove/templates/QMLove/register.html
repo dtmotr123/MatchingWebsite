@@ -2,7 +2,8 @@
 
 {% load widget_tweaks %}
 
-<html>
+{% block title %}Register{% endblock %}
+
 
 <head>
   {% block head %}
@@ -12,22 +13,57 @@
 <body>
   {% block body %}
 
-  <div class="container">
-    <h2 id="formTitle">Sign up</h2>
+  <div class="container paddingtop">
+      <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <h3><li class="breadcrumb-item">Sign up</li></h3>
+    </ol>
+  </nav>
 
     <!--
     The form must contain the enctype.
     It is necessary for file (image) upload.
   -->
-  <div class="form-group">
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
-      {{ userForm.as_p }}
-      {{ profileForm.as_p }}
-      <button type="submit">Sign up</button>
+
+      {% for field in userForm %}
+        <div class="form-group">
+          <strong><label for="{{ field.id_for_label }}"> {{ field.label_tag }} </label></strong>
+          {{ field|add_class:'form-control' }}
+          {% for error in field.errors %}
+            <span class="help-block">{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% endfor %}
+
+      {% for field in profileForm %}
+        <div class="form-group">
+          <strong><label for="{{ field.id_for_label }}"> {{ field.label_tag }} </label></strong>
+
+          {% if field == profileForm.hobby %}
+            {{ field|add_class:'form-group list-unstyled' }}
+          {% endif %}
+
+          {% if field != profileForm.hobby %}
+            {{ field|add_class:'form-control' }}
+          {% endif %}
+
+          {% for error in field.errors %}
+            <span class="help-block">{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% endfor %}
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-success">
+            Sign up
+          </button>
+        </div>
+      <p></p>
     </form>
   </div>
-</div>
+
 <!-- Footer -->
 <footer class="py-5 bg-dark">
   <div class="container">
