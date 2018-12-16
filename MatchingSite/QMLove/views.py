@@ -38,6 +38,8 @@ def index(request):
         # similar_interests stores user1, user2, etc.
         similar_interests = [user for user,count in related_users_sorted]
 
+        print(request.user.last_login, request.user.date_joined)
+
         return render(request, "QMLove/index.html", {'similar_interests': similar_interests, 'hobbies': hobbies})
     # if no user is authenticated, display all the users registered
     else:

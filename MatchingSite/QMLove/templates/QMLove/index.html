@@ -22,6 +22,45 @@
 
     {% if user.is_authenticated %}
 
+    {% if user.date_joined|date:"D d M Y H:i" == user.last_login|date:"D d M Y H:i" %}
+      <div class="alert alert-success" role="alert">
+        <p>
+          Hello, {{ user }}! We want to say a warm welcome to our site! We try our best to match you with people with the most hobbies in common.
+          We think that the more hobbies in common, the better the chances are that you will make a perfect couple or an ideal friendship.
+        </p>
+
+        <p>
+          Thus, on this page, you will only see people that have as many hobbies in common with you as possible.
+          If you want to search for people based on age, hobbies and gender go to the network page.
+        </p>
+
+        <p>
+          P.S: Do not worry, the message will disappear soon!
+        </p>
+
+        <p>
+          Happy surfing!
+        </p>
+      </div>
+    {% endif %}
+
+    {% if user.is_staff %}
+      <div class="alert alert-warning" role="alert">
+        <p>
+          This page does not display anything for you because you are an admin.
+          You do not have any hobbies, sadly, so we cannot match you with any user. :-(
+        </p>
+
+        <p>
+          If you want to see all the users registered, go to the network page!
+        </p>
+
+        <p>
+          Sorry!
+        </p>
+      </div>
+    {% endif %}
+
     <!-- Page Features -->
     <div class="row text-center">
       {% for user in similar_interests %}
